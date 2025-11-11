@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(morgan("combined"));
 
-app.use("/api/users", authorizationMiddleware, userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/events", authorizationMiddleware, eventRoutes);
 app.use("/api/employees", authorizationMiddleware, employeeRoutes);
 
