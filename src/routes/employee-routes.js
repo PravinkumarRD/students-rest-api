@@ -7,7 +7,7 @@ const {
 } = require("../middleware/authorization-middleware");
 
 const employeeRoutes = express.Router();
-//employeeRoutes.use(authorizationMiddleware);
+employeeRoutes.use(authorizationMiddleware);
 //Declare Children routes
 //Default Child Route - http://localhost:9090/api/employees
 employeeRoutes.get("/", async (request, response) => {

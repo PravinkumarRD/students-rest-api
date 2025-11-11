@@ -1,31 +1,28 @@
-const jwt = require("jsonwebtoken");
 const { verifyAccessToken } = require("../utility-functions");
 
-async function authorizationMiddleware(request, response, next) {
-  let token =
-    request.headers["bajaj-authorization-token"] ||
-    request.body.token ||
-    request.query.token;
-    console.log(token);
-  if (token) {
-    try {
-      const output = await verifyAccessToken(token);
-      console.log(output)
-      next();
-    } catch (error) {
-      response.status(401).json({
-        message:
-          "Your token is expired! Please re-login the re-generate the token!",
+async function authorizationMiddleware(req, res, next) {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({
+        success: false,
+        message: "Access denied. Missing or invalid Authorization header.",
       });
-      return;
     }
-  } else {
-    response.status(401).json({
-      message: "You are missing the token! Please login to receive the token!",
+
+    const token = authHeader.split(" ")[1];
+    const decoded = await verifyAccessToken(token);
+
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.error("Authorization Error:", error.message);
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired token. Please log in again.",
     });
   }
 }
 
-module.exports = {
-  authorizationMiddleware,
-};
+module.exports = authorizationMiddleware;

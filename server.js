@@ -25,7 +25,7 @@ app.use(morgan("combined"));
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/employees", employeeRoutes);
-console.log("MongoDB URI:", process.env.MONGODB_SERVER);
+
 app.listen(PORT, () =>
   console.log(`Students Events Service is running on PORT - ${PORT} !`)
 );

@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 
 const client = new MongoClient(process.env.MONGODB_SERVER);
-console.log("MongoDB URI:", process.env.MONGODB_SERVER);
+
 async function fetchAllEmployees() {
   try {
     await client.connect();
