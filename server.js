@@ -13,6 +13,7 @@ const employeeRoutes = require("./src/routes/employee-routes");
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -30,7 +31,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-app.options('*', cors()); // Handle preflight
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
