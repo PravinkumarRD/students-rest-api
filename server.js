@@ -30,6 +30,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+app.options('*', cors()); // Handle preflight
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
