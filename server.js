@@ -3,6 +3,10 @@ require("dotenv").config();
 const morgan = require("morgan");
 const cors = require("cors");
 
+const {
+  authorizationMiddleware,
+} = require("./src/middleware/authorization-middleware");
+
 const userRoutes = require("./src/routes/user-routes");
 const eventRoutes = require("./src/routes/event-routes");
 const employeeRoutes = require("./src/routes/employee-routes");
@@ -13,7 +17,10 @@ const app = express();
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization,bajaj-authorization-token");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization,bajaj-authorization-token"
+  );
   next();
 });
 app.use(cors());
@@ -22,9 +29,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(morgan("combined"));
 
-app.use("/api/users", userRoutes);
-app.use("/api/events", eventRoutes);
-app.use("/api/employees", employeeRoutes);
+app.use("/api/users", authorizationMiddleware, userRoutes);
+app.use("/api/events", authorizationMiddleware, eventRoutes);
+app.use("/api/employees", authorizationMiddleware, employeeRoutes);
 
 app.listen(PORT, () =>
   console.log(`Students Events Service is running on PORT - ${PORT} !`)

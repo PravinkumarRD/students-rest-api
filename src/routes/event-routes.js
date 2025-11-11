@@ -2,12 +2,12 @@ const express = require("express");
 
 const eventServiceObject = require("../services/event-service");
 
-const {
-  authorizationMiddleware,
-} = require("../middleware/authorization-middleware");
+// const {
+//   authorizationMiddleware,
+// } = require("../middleware/authorization-middleware");
 
 const eventRoutes = express.Router();
-eventRoutes.use(authorizationMiddleware);
+// eventRoutes.use(authorizationMiddleware);
 //Declare Children routes
 //Default Child Route - http://localhost:9090/api/events
 eventRoutes.get("/", async (request, response) => {

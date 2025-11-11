@@ -25,4 +25,4 @@ async function authorizationMiddleware(req, res, next) {
   }
 }
 
-module.exports = authorizationMiddleware;
+module.exports.authorizationMiddleware = authorizationMiddleware;
