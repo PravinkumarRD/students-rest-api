@@ -23,7 +23,12 @@ app.use((req, res, next) => {
   );
   next();
 });
-app.use(cors());
+app.use(cors({
+  origin: "*", // or "https://yourdomain.com"
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
