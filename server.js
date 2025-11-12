@@ -39,7 +39,8 @@ app.use(morgan("combined"));
 
 app.use("/api/users", userRoutes);
 app.use("/api/events", authorizationMiddleware, eventRoutes);
-app.use("/api/employees", authorizationMiddleware, employeeRoutes);
+// app.use("/api/employees", authorizationMiddleware, employeeRoutes);
+app.use("/api/employees", employeeRoutes);
 
 app.listen(PORT, () =>
   console.log(`Students Events Service is running on PORT ${PORT}`)
